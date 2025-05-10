@@ -149,9 +149,7 @@ Akses aplikasi di browser melalui `http://127.0.0.1:8000`.
 * **Rute Auth**:
 
     * `/login` - Halaman login
-    * `/register` - Halaman registrasi
     * `/forgot-password` - Halaman reset password
-    * `/reset-password` - Halaman reset password
 
 * **Rute Buku**:
 
