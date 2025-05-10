@@ -26,7 +26,7 @@ class UpdateRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email,'.$this->route('user')->id],
-            'role' => ['required', 'in:'.collect(UserType::asSelectArray())->implode(',')],
+            'role' => ['required', 'in:'.collect(UserType::asArray())->implode(',')],
         ];
     }
 }
