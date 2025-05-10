@@ -12,7 +12,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,9 +24,8 @@ class StoreRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:255'],
-            'description' => ['nullable', 'string'],
             'year' => ['required', 'numeric'],
-            'creator_id' => ['required', 'exists:book_creators,id'],
+            'creator_name' => ['required', 'exists:book_creators,name'],
         ];
     }
 }

@@ -1,6 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 import Table from '@/Components/Table.jsx'
+import PrimaryAnchor from '@/Components/PrimaryAnchor.jsx'
 
 export default function Index({ books }) {
     const columns = [
@@ -50,6 +51,16 @@ export default function Index({ books }) {
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                        <div
+                            className={
+                                'flex justify-end p-6 bg-white border-b border-gray-200'
+                            }
+                        >
+                            <PrimaryAnchor href={route('books.create')}>
+                                Create New Book
+                            </PrimaryAnchor>
+                        </div>
+
                         <div className="p-6 text-gray-900">
                             <Table data={books} columns={columns} />
                         </div>

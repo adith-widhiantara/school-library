@@ -7,9 +7,6 @@ use App\Http\Requests\Book\UpdateRequest;
 use App\Http\Services\BookService;
 use App\Models\Book;
 use App\Models\BookCreator;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -30,6 +27,7 @@ class BookController extends Controller
     {
         $books = Book::query()
             ->with(['creator'])
+            ->has('creator')
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -53,11 +51,15 @@ class BookController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View|Application|Factory
+    public function create(): Response
     {
-        $creators = BookCreator::all();
+        $creators = BookCreator::query()
+            ->pluck('name')
+            ->toArray();
 
-        return view('books.create', compact('creators'));
+        return Inertia::render('Books/Create', [
+            'creators' => $creators,
+        ]);
     }
 
     /**

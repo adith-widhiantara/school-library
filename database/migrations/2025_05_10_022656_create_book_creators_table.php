@@ -19,7 +19,7 @@ return new class extends Migration
         });
 
         Schema::table('books', function (Blueprint $table) {
-            $table->foreignId('creator_id')->nullable()->constrained('book_creators')->onDelete('set null')->onUpdate('cascade');
+            $table->foreignId('creator_id')->nullable()->constrained('book_creators')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

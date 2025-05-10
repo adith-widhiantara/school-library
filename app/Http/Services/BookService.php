@@ -11,8 +11,16 @@ final class BookService extends Service
 {
     public function store(FormRequest $request): Book|Model
     {
+        $creator = BookCreator::query()
+            ->where('name', $request->input('creator_name'))
+            ->value('id');
+
         return Book::query()
-            ->create($request->validated());
+            ->create([
+                'title' => $request->input('title'),
+                'year' => $request->input('year'),
+                'creator_id' => $creator,
+            ]);
     }
 
     public function update(FormRequest $request, Book|Model $model): bool
