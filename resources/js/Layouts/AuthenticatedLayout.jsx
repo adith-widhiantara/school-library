@@ -1,15 +1,21 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import Dropdown from '@/Components/Dropdown';
-import NavLink from '@/Components/NavLink';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link, usePage } from '@inertiajs/react';
-import { useState } from 'react';
+import ApplicationLogo from '@/Components/ApplicationLogo'
+import Dropdown from '@/Components/Dropdown'
+import NavLink from '@/Components/NavLink'
+import ResponsiveNavLink from '@/Components/ResponsiveNavLink'
+import {Link, usePage} from '@inertiajs/react'
+import {useEffect, useState} from 'react'
 
-export default function AuthenticatedLayout({ header, children }) {
-    const user = usePage().props.auth.user;
+export default function AuthenticatedLayout({header, children}) {
+    const user = usePage().props.auth.user
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
-        useState(false);
+        useState(false)
+
+    const [isAdmin, setIsAdmin] = useState(false)
+
+    useEffect(() => {
+        setIsAdmin(user.role === 'admin')
+    }, [user])
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -19,7 +25,7 @@ export default function AuthenticatedLayout({ header, children }) {
                         <div className="flex">
                             <div className="flex shrink-0 items-center">
                                 <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
+                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800"/>
                                 </Link>
                             </div>
 
@@ -30,6 +36,22 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
+
+                                <NavLink
+                                    href={route('books.index')}
+                                    active={route().current('books.index')}
+                                >
+                                    Book
+                                </NavLink>
+
+                                {isAdmin && (
+                                    <NavLink
+                                        href={route('book-creators.index')}
+                                        active={route().current('book-creators.index')}
+                                    >
+                                        Book Creator
+                                    </NavLink>
+                                )}
                             </div>
                         </div>
 
@@ -132,7 +154,21 @@ export default function AuthenticatedLayout({ header, children }) {
                             href={route('dashboard')}
                             active={route().current('dashboard')}
                         >
-                            Dashboard
+                            Dashboard A
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink
+                            href={route('dashboard')}
+                            active={route().current('dashboard')}
+                        >
+                            Dashboard B
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink
+                            href={route('dashboard')}
+                            active={route().current('dashboard')}
+                        >
+                            Dashboard C
                         </ResponsiveNavLink>
                     </div>
 
@@ -172,5 +208,5 @@ export default function AuthenticatedLayout({ header, children }) {
 
             <main>{children}</main>
         </div>
-    );
+    )
 }

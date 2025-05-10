@@ -19,9 +19,16 @@ class DatabaseSeeder extends Seeder
             ->regular()
             ->create();
 
-        User::factory(5)
+        User::factory(4)
             ->admin()
             ->create();
+
+        User::factory(1)
+            ->admin()
+            ->create([
+                'name' => 'Admin',
+                'email' => 'admin@gmail.com',
+            ]);
 
         Book::factory(10)
             ->create();
