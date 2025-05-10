@@ -129,7 +129,7 @@ export default function Create() {
                                     <InputLabel htmlFor="role" value="role" />
 
                                     <SelectMenu
-                                        options={['admin', 'user']}
+                                        options={['user']}
                                         onChange={(e) => {
                                             setData('role', e.target.value)
                                         }}
