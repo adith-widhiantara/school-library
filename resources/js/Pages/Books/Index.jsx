@@ -1,9 +1,17 @@
+import React, { useEffect, useState } from 'react'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-import { Head } from '@inertiajs/react'
+import { Head, usePage } from '@inertiajs/react'
 import Table from '@/Components/Table.jsx'
 import PrimaryAnchor from '@/Components/PrimaryAnchor.jsx'
 
 export default function Index({ books }) {
+    const user = usePage().props.auth.user
+    const [isAdmin, setIsAdmin] = useState(false)
+
+    useEffect(() => {
+        setIsAdmin(user.role === 'admin')
+    }, [user])
+
     const columns = [
         {
             name: 'Title',
@@ -27,12 +35,14 @@ export default function Index({ books }) {
                     >
                         View
                     </a>
-                    <a
-                        href={route('books.edit', row.id)}
-                        className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800 focus:outline-hidden focus:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-green-500 dark:hover:text-green-400 dark:focus:text-green-400"
-                    >
-                        Edit
-                    </a>
+                    {isAdmin && (
+                        <a
+                            href={route('books.edit', row.id)}
+                            className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800 focus:outline-hidden focus:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-green-500 dark:hover:text-green-400 dark:focus:text-green-400"
+                        >
+                            Edit
+                        </a>
+                    )}
                 </div>
             ),
         },
@@ -51,15 +61,13 @@ export default function Index({ books }) {
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                        <div
-                            className={
-                                'flex justify-end p-6 bg-white border-b border-gray-200'
-                            }
-                        >
-                            <PrimaryAnchor href={route('books.create')}>
-                                Create New Book
-                            </PrimaryAnchor>
-                        </div>
+                        {isAdmin && (
+                            <div className="flex justify-end p-6 bg-white border-b border-gray-200">
+                                <PrimaryAnchor href={route('books.create')}>
+                                    Create New Book
+                                </PrimaryAnchor>
+                            </div>
+                        )}
 
                         <div className="p-6 text-gray-900">
                             <Table data={books} columns={columns} />
