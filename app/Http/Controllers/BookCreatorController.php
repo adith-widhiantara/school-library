@@ -6,10 +6,9 @@ use App\Http\Requests\BookCreator\StoreRequest;
 use App\Http\Requests\BookCreator\UpdateRequest;
 use App\Http\Services\BookCreatorService;
 use App\Models\BookCreator;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class BookCreatorController extends Controller
 {
@@ -23,11 +22,13 @@ class BookCreatorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View|Application|Factory
+    public function index(): Response
     {
         $creators = BookCreator::all();
 
-        return view('book_creators.index', compact('creators'));
+        return Inertia::render('BookCreator/Index', [
+            'creators' => $creators,
+        ]);
     }
 
     /**
@@ -45,26 +46,30 @@ class BookCreatorController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View|Application|Factory
+    public function create(): Response
     {
-        return view('book_creators.create');
+        return Inertia::render('BookCreator/Create');
 
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(BookCreator $bookCreator): View|Application|Factory
+    public function show(BookCreator $bookCreator): Response
     {
-        return view('book_creators.show', compact('bookCreator'));
+        return Inertia::render('BookCreator/Show', [
+            'creator' => $bookCreator,
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(BookCreator $bookCreator): View|Application|Factory
+    public function edit(BookCreator $bookCreator): Response
     {
-        return view('book_creators.edit', compact('bookCreator'));
+        return Inertia::render('BookCreator/Edit', [
+            'creator' => $bookCreator,
+        ]);
     }
 
     /**
