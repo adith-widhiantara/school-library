@@ -1,16 +1,17 @@
 <?php
 
 use App\Enums\UserType;
+use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\RoleMiddleware;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookCreatorController;
-use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth', 'role:'.UserType::ADMIN])->group(function () {
+Route::middleware(['auth', RoleMiddleware::class . ':' . UserType::ADMIN])->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('book-creators', BookCreatorController::class);
     Route::resource('books', BookController::class)->except(['index', 'show']);
