@@ -24,13 +24,38 @@ penulis buku, serta pengguna. Pengguna dengan level Non-Admin hanya dapat meliha
     * Fitur login, logout, dan reset password.
     * Admin dan Non-Admin memiliki hak akses yang berbeda.
 
+## **Persyaratan Sistem (Requirements)**
+
+Agar aplikasi ini berjalan dengan baik, pastikan lingkungan pengembangan kamu memenuhi persyaratan berikut:
+
+### **PHP Version**:
+
+* Pastikan menggunakan **PHP 8.2** atau lebih tinggi.
+
+### **Library yang Digunakan**:
+
+1. **bensampo/laravel-enum**: Untuk memudahkan penggunaan enum di Laravel.
+2. **inertiajs/inertia-laravel**: Untuk mengintegrasikan Inertia.js dengan Laravel (menggunakan server-side rendering
+   dengan Vue.js).
+3. **laravel/framework**: Laravel framework versi 12.x.
+4. **laravel/sanctum**: Untuk autentikasi berbasis token di aplikasi.
+5. **laravel/tinker**: Untuk memberikan kemampuan REPL (Read Eval Print Loop) di Laravel.
+6. **tightenco/ziggy**: Untuk membuat rute Laravel bisa digunakan di JavaScript.
+
+### **Pengaturan Email (MAIL_MAILER)**
+
+Pada file `.env`, pengaturan untuk MAIL_MAILER harus disesuaikan dengan provider mailer yang digunakan.
+
+Pastikan mengganti nilai `MAIL_USERNAME`, `MAIL_PASSWORD`, dan pengaturan lainnya sesuai dengan kredensial provider
+email yang dipilih. Setelah itu, Laravel dapat mengirimkan email untuk reset password.
+
 ## **Panduan Instalasi**
 
 ### 1. **Clone Repository**
 
 ```bash
-git clone <repository_url>
-cd <project_folder>
+git clone https://github.com/adith-widhiantara/school-library.git
+cd school-library
 ```
 
 ### 2. **Install Dependencies**
