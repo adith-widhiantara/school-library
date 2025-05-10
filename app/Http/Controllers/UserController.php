@@ -6,10 +6,9 @@ use App\Http\Requests\User\StoreRequest;
 use App\Http\Requests\User\UpdateRequest;
 use App\Http\Services\UserService;
 use App\Models\User;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class UserController extends Controller
 {
@@ -23,19 +22,22 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View|Application|Factory
+    public function index(): Response
     {
-        $users = User::all();
+        $users = User::query()
+            ->get();
 
-        return view('users.index', compact('users'));
+        return Inertia::render('Users/Index', [
+            'users' => $users,
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View|Application|Factory
+    public function create(): Response
     {
-        return view('users.create');
+        return Inertia::render('Users/Create');
     }
 
     /**
@@ -43,7 +45,7 @@ class UserController extends Controller
      */
     public function store(StoreRequest $request): RedirectResponse
     {
-        $this->userService->createUser($request);
+        $this->userService->store($request);
 
         return redirect()
             ->route('users.index')
@@ -53,17 +55,21 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user): View|Application|Factory
+    public function show(User $user): Response
     {
-        return view('users.show', compact('user'));
+        return Inertia::render('Users/Show', [
+            'user' => $user,
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user): View|Application|Factory
+    public function edit(User $user): Response
     {
-        return view('users.edit', compact('user'));
+        return Inertia::render('Users/Edit', [
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -71,7 +77,7 @@ class UserController extends Controller
      */
     public function update(UpdateRequest $request, User $user): RedirectResponse
     {
-        $this->userService->updateUser($request, $user);
+        $this->userService->update($request, $user);
 
         return redirect()
             ->route('users.index')
@@ -83,7 +89,7 @@ class UserController extends Controller
      */
     public function destroy(User $user): RedirectResponse
     {
-        $this->userService->deleteUser($user);
+        $this->userService->delete($user);
 
         return redirect()
             ->route('users.index')

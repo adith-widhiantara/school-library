@@ -2,10 +2,10 @@ import ApplicationLogo from '@/Components/ApplicationLogo'
 import Dropdown from '@/Components/Dropdown'
 import NavLink from '@/Components/NavLink'
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink'
-import {Link, usePage} from '@inertiajs/react'
-import {useEffect, useState} from 'react'
+import { Link, usePage } from '@inertiajs/react'
+import { useEffect, useState } from 'react'
 
-export default function AuthenticatedLayout({header, children}) {
+export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
@@ -25,7 +25,7 @@ export default function AuthenticatedLayout({header, children}) {
                         <div className="flex">
                             <div className="flex shrink-0 items-center">
                                 <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800"/>
+                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
                                 </Link>
                             </div>
 
@@ -39,18 +39,29 @@ export default function AuthenticatedLayout({header, children}) {
 
                                 <NavLink
                                     href={route('books.index')}
-                                    active={route().current('books.index')}
+                                    active={route().current('books.*')}
                                 >
                                     Book
                                 </NavLink>
 
                                 {isAdmin && (
-                                    <NavLink
-                                        href={route('book-creators.index')}
-                                        active={route().current('book-creators.index')}
-                                    >
-                                        Book Creator
-                                    </NavLink>
+                                    <>
+                                        <NavLink
+                                            href={route('book-creators.index')}
+                                            active={route().current(
+                                                'book-creators.*',
+                                            )}
+                                        >
+                                            Book Creator
+                                        </NavLink>
+
+                                        <NavLink
+                                            href={route('users.index')}
+                                            active={route().current('users.*')}
+                                        >
+                                            Users
+                                        </NavLink>
+                                    </>
                                 )}
                             </div>
                         </div>
