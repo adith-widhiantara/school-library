@@ -1,61 +1,155 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# **Sistem Manajemen Buku** (Laravel)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistem **Manajemen Buku** ini dibangun menggunakan **Laravel**. Sistem ini memungkinkan Admin untuk mengelola buku,
+penulis buku, serta pengguna. Pengguna dengan level Non-Admin hanya dapat melihat buku.
 
-## About Laravel
+## **Fitur**
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+* **Manajemen Pengguna** (Hanya Admin):
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+    * Admin dapat menambah, mengedit, dan menghapus pengguna.
+    * Admin dapat menetapkan role pengguna (Admin atau Non-Admin).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+* **Manajemen Buku**:
 
-## Learning Laravel
+    * Admin dapat menambah, membaca, mengedit, dan menghapus buku.
+    * Admin dapat mengaitkan buku dengan penulis (Book Creator).
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+* **Manajemen Book Creator** (Hanya Admin):
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+    * Admin dapat menambah, mengedit, dan menghapus book creator (penulis buku).
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+* **Autentikasi**:
 
-## Laravel Sponsors
+    * Fitur login, logout, dan reset password.
+    * Admin dan Non-Admin memiliki hak akses yang berbeda.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## **Panduan Instalasi**
 
-### Premium Partners
+### 1. **Clone Repository**
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+```bash
+git clone <repository_url>
+cd <project_folder>
+```
 
-## Contributing
+### 2. **Install Dependencies**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Jalankan perintah ini untuk menginstal dependensi PHP:
 
-## Code of Conduct
+```bash
+composer install
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 3. **Atur Lingkungan**
 
-## Security Vulnerabilities
+Salin file `.env.example` menjadi `.env`:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+cp .env.example .env
+```
 
-## License
+Generate key aplikasi:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+php artisan key:generate
+```
+
+### 4. **Setel Database**
+
+1. Buat database untuk proyek ini (misalnya, `book_management_system`).
+2. Konfigurasi file `.env` dengan pengaturan database yang benar:
+
+```plaintext
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=book_management_system
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### 5. **Jalankan Migrasi**
+
+Migrasikan tabel-tabel ke dalam database:
+
+```bash
+php artisan migrate
+```
+
+### 6. **Install Laravel Breeze untuk Autentikasi**
+
+Jalankan perintah berikut untuk menginstal **Laravel Breeze** (ini akan mengatur rute dan tampilan autentikasi):
+
+```bash
+composer require laravel/breeze --dev
+php artisan breeze:install
+npm install
+npm run dev
+```
+
+### 7. **Seed Database (Opsional)**
+
+Untuk mengisi database dengan data awal (pengguna, penulis buku, dan buku), jalankan:
+
+```bash
+php artisan db:seed
+```
+
+### 8. **Jalankan Aplikasi**
+
+Mulai server pengembangan Laravel:
+
+```bash
+php artisan serve
+```
+
+Akses aplikasi di browser melalui `http://127.0.0.1:8000`.
+
+## **Penggunaan**
+
+### **Autentikasi**
+
+* **Admin** dapat masuk dengan kredensial default atau membuat pengguna admin melalui seeder database.
+* **Pengguna Non-Admin** juga dapat masuk dan melihat buku, tetapi tidak dapat memodifikasi data.
+
+### **Kontrol Akses**
+
+* **Admin** dapat membuat, mengedit, dan menghapus pengguna, buku, dan penulis.
+* **Non-Admin** hanya dapat **melihat** buku (daftar dan detail), tetapi tidak dapat menambah, mengedit, atau menghapus
+  buku atau penulis.
+
+### **Rute yang Tersedia**
+
+* **Rute Auth**:
+
+    * `/login` - Halaman login
+    * `/register` - Halaman registrasi
+    * `/forgot-password` - Halaman reset password
+    * `/reset-password` - Halaman reset password
+
+* **Rute Buku**:
+
+    * `/books` - Daftar buku (dapat diakses oleh Admin dan Non-Admin)
+    * `/books/{book}` - Lihat detail buku
+    * `/books/create` - Tambah buku baru (Hanya Admin)
+    * `/books/{book}/edit` - Edit buku (Hanya Admin)
+
+* **Rute Pengguna** (Hanya Admin):
+
+    * `/users` - Kelola pengguna
+    * `/users/{user}` - Lihat detail pengguna
+    * `/users/{user}/edit` - Edit pengguna
+
+* **Rute Book Creators** (Hanya Admin):
+
+    * `/book-creators` - Kelola penulis buku
+    * `/book-creators/{creator}` - Lihat detail penulis
+    * `/book-creators/{creator}/edit` - Edit penulis buku
+
+## **Struktur File**
+
+* `app/Models/` - Berisi model Eloquent untuk `User`, `Book`, dan `BookCreator`.
+* `app/Http/Controllers/` - Controller untuk menangani logika pengguna, buku, dan book creators.
+* `resources/views/` - Tampilan Blade untuk autentikasi dan data.
+* `database/migrations/` - File migrasi untuk tabel-tabel database.
