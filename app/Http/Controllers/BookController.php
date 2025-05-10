@@ -30,6 +30,7 @@ class BookController extends Controller
     {
         $books = Book::query()
             ->with(['creator'])
+            ->orderBy('created_at', 'desc')
             ->get();
 
         return Inertia::render('Books/Index', [
@@ -62,19 +63,30 @@ class BookController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Book $book): View|Application|Factory
+    public function show(Book $book): Response
     {
-        return view('books.show', compact('book'));
+        $book->load(['creator']);
+
+        return Inertia::render('Books/Show', [
+            'book' => $book,
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Book $book): View|Application|Factory
+    public function edit(Book $book): Response
     {
-        $creators = BookCreator::all();
+        $book->load(['creator']);
 
-        return view('books.edit', compact('book', 'creators'));
+        $creators = BookCreator::query()
+            ->pluck('name')
+            ->toArray();
+
+        return Inertia::render('Books/Edit', [
+            'book' => $book,
+            'creators' => $creators,
+        ]);
     }
 
     /**

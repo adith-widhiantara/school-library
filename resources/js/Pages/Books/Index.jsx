@@ -22,13 +22,13 @@ export default function Index({ books }) {
                 <div className="flex space-x-2">
                     <a
                         href={route('books.show', row.id)}
-                        className="text-blue-500 hover:text-blue-700"
+                        className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-hidden focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:text-blue-400"
                     >
                         View
                     </a>
                     <a
                         href={route('books.edit', row.id)}
-                        className="text-green-500 hover:text-green-700"
+                        className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800 focus:outline-hidden focus:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-green-500 dark:hover:text-green-400 dark:focus:text-green-400"
                     >
                         Edit
                     </a>

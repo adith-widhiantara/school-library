@@ -26,7 +26,7 @@ class UpdateRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'year' => ['required', 'numeric'],
-            'creator_id' => ['required', 'exists:book_creators,id'],
+            'creator_name' => ['required', 'exists:book_creators,name'],
         ];
     }
 }
